@@ -28,3 +28,4 @@ Vaikka sovellus tukeekin montaa käyttäjää on käyttäjätyyppejä vain yksi.
 - Holvin salauksen tulee olla kryptografisesti riittävän vahva *(RSA 2048 bits?)*.
 
 ## Käyttöliittymä
+![](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/media/K%C3%A4ytt%C3%B6liittym%C3%A4.png?raw=true)

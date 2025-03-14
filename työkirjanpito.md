@@ -4,3 +4,4 @@
 | ----- | ----- | ----------------------------------------------------------------- |
 | 10.3. | 0.5h  | Kirjoitin alustavat vaatimusmääritelmät                           |
 |       | 2min  | Järjestin projektia uudestaan viikon 3 harjoitustyön 1 mukaiseksi |
+| 12.3. | 2h    | Toteutin tietokanta-luokan alun                                   |
