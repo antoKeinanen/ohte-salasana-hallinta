@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 platformdirs = "^4.3.6"
+invoke = "^2.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
