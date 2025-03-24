@@ -3,7 +3,17 @@ from invoke import task
 
 @task
 def start(ctx):
-    return ctx.run("python3 src/main.py", pty=True)
+    ctx.run("python3 src/main.py", pty=True)
+
+
+@task
+def dev(ctx):
+    ctx.run("textual run --dev src/main.py", pty=True)
+
+
+@task
+def console(ctx):
+    ctx.run("textual console -x system -x event -x debug")
 
 
 @task
@@ -18,4 +28,4 @@ def coverage(ctx):
 
 @task(coverage, optional=["mode"])
 def coverage_report(ctx, mode="html"):
-    return ctx.run(f"coverage {mode}", pty=True)
+    ctx.run(f"coverage {mode}", pty=True)
