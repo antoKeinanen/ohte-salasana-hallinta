@@ -1,2 +1,5 @@
+from view.password_manager_app import PasswordManagerApp
+
 if __name__ == "__main__":
-    pass
+    app = PasswordManagerApp()
+    app.mainloop()
