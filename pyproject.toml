@@ -8,7 +8,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 platformdirs = "^4.3.6"
-textual-dev = "^1.7.0"
 
 
 [tool.poetry.group.dev.dependencies]
