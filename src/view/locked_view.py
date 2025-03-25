@@ -1,12 +1,11 @@
 from tkinter import Frame, Listbox, Button, Label, Entry
-from controller.locked_controller import LockedController
 
 
 class LockedView(Frame):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, controller, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.controller = LockedController(self)
+        self.controller = controller
 
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -20,6 +19,7 @@ class LockedView(Frame):
         self.create_vault_button = Button(
             self,
             text="+ Luo uusi holvi",
+            command=self._on_create_vault_button_click,
         )
 
         if len(self.controller.state.vaults):
@@ -50,3 +50,6 @@ class LockedView(Frame):
         index = self.listbox.curselection()
         if index:
             self.controller.set_active_vault(index[0])
+
+    def _on_create_vault_button_click(self):
+        self.controller.swap_to_create_vault_view()

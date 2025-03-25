@@ -1,8 +1,5 @@
 from tkinter import Tk
 
-from view.locked_view import LockedView
-
-
 class PasswordManagerApp(Tk):
     def __init__(self):
         super().__init__()
@@ -18,5 +15,3 @@ class PasswordManagerApp(Tk):
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
-
-        LockedView().grid(row=0, column=0, sticky="nsew")

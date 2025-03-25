@@ -4,7 +4,9 @@ from tkinter import StringVar, Widget
 
 
 class LockedController:
-    def __init__(self, context: Widget):
+    def __init__(self, context: Widget, app_controller):
+        self._app_controller = app_controller
+
         vaults = discover_vaults()
         vault_heading_content = StringVar(context, "")
         if len(vaults):
@@ -15,3 +17,6 @@ class LockedController:
     def set_active_vault(self, index: int):
         self.state.selected_database = index
         self.state.vault_heading_content.set(f"Avaa {self.state.vaults[index][1]}")
+
+    def swap_to_create_vault_view(self):
+        self._app_controller.swap_view("create-vault")

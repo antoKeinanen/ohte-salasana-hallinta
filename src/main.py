@@ -1,5 +1,7 @@
-from view.password_manager_app import PasswordManagerApp
+
+from controller.app_controller import AppController
+
 
 if __name__ == "__main__":
-    app = PasswordManagerApp()
-    app.mainloop()
+    app = AppController()
+    app.run_main_loop()
