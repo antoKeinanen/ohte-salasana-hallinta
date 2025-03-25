@@ -7,16 +7,6 @@ def start(ctx):
 
 
 @task
-def dev(ctx):
-    ctx.run("textual run --dev src/main.py", pty=True)
-
-
-@task
-def console(ctx):
-    ctx.run("textual console -x system -x event -x debug")
-
-
-@task
 def test(ctx):
     ctx.run("pytest", pty=True)
 
