@@ -1,4 +1,4 @@
-from tkinter import Tk
+from tkinter import Tk, font
 
 class PasswordManagerApp(Tk):
     def __init__(self):
@@ -15,3 +15,6 @@ class PasswordManagerApp(Tk):
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
+
+        self.defaultFont = font.nametofont("TkDefaultFont")
+        self.defaultFont.configure(family="Arial", weight=font.NORMAL)
