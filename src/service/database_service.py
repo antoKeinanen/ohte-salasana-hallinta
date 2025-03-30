@@ -16,9 +16,23 @@ class DatabaseService:
 
         db_pattern = str(Path(self.base_path).joinpath("*.db"))
         matches = glob(db_pattern)
-        names = [Path(match).name.capitalize().removesuffix(".db") for match in matches]
+        names = [Path(match).name.removesuffix(".db") for match in matches]
         paths = [Path(match) for match in matches]
         return [Database(*db) for db in zip(paths, names)]
+
+    def create_database(self, name: str):
+        if not name:
+            return "Syötä holville nimi"
+        if not all(c.isalnum() or c in "-_" for c in name):
+            return "Holvin nimi voi sisältää vain kirjaimia, numeroita, alaviivoja ja viivoja"
+
+        db_path = self.base_path.joinpath(f"{name}.db")
+        if db_path.exists():
+            return f"Holvi {name} on jo olemassa"
+
+        db_path.touch()
+
+        self.discover_databases()
 
 
 database_service = DatabaseService()

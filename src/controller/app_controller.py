@@ -8,17 +8,19 @@ class AppController:
         self.app = PasswordManagerApp()
 
         self.controllers = {
-            "locked": LockedController(self.app, self),
-            "create-vault": CreateVaultController(),
+            "locked": LockedController,
+            "create-vault": CreateVaultController,
         }
         self.active_view = "locked"
-
-        self.controllers[self.active_view].frame.grid(row=0, column=0, sticky="nsew")
+        self.active_controller = self.controllers[self.active_view](self.app, self)
+        self.active_controller.frame.grid(row=0, column=0, sticky="nsew")
 
     def swap_view(self, new_view: str):
-        self.controllers[self.active_view].frame.destroy()
-        self.controllers[new_view].frame.grid(row=0, column=0, sticky="nsew")
+        self.active_controller.frame.grid_remove()
+
         self.active_view = new_view
+        self.active_controller = self.controllers[self.active_view](self.app, self)
+        self.active_controller.frame.grid(row=0, column=0, sticky="nsew")
 
     def run_main_loop(self):
         self.app.mainloop()

@@ -2,7 +2,7 @@ from __future__ import annotations
 from model.locked_state import LockedState
 from tkinter import StringVar, Widget
 from view.locked_view import LockedView
-from service.database_service import DatabaseService
+from service.database_service import database_service
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -13,7 +13,7 @@ class LockedController:
     def __init__(self, context: Widget, app_controller: AppController):
         self._app_controller = app_controller
 
-        vaults = DatabaseService().discover_databases()
+        vaults = database_service.discover_databases()
         vault_heading_content = StringVar(context, "")
         if len(vaults):
             vault_heading_content.set(f"Avaa {vaults[0].name}")
