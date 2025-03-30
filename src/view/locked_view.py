@@ -1,8 +1,13 @@
+from __future__ import annotations
 from tkinter import Frame, Listbox, Button, Label, Entry
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from controller.locked_controller import LockedController
 
 
 class LockedView(Frame):
-    def __init__(self, controller, *args, **kwargs):
+    def __init__(self, controller: LockedController, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.controller = controller
