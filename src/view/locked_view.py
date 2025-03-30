@@ -26,30 +26,36 @@ class LockedView(Frame):
             text="+ Luo uusi holvi",
             command=self._on_create_vault_button_click,
         )
+        self.create_vault_button.grid(row=1, column=0, sticky="nsew")
 
-        if len(self.controller.state.vaults):
-            self.listbox.activate(0)
+        self.right_container = Frame(self)
+        self.right_container.grid(row=0, column=1, rowspan=2)
 
-            self.create_vault_button.grid(row=1, column=0, sticky="nsew")
-
-            self.right_container = Frame(self)
-            self.right_container.grid(row=0, column=1, rowspan=2)
-
+        if not self.controller.state.vaults:
             self.header = Label(
                 self.right_container,
-                textvariable=self.controller.state.vault_heading_content,
-                font=("", 16),
+                text="Luo uusi hovi painamalla luo uusi holvi nappia",
             )
             self.header.grid(row=0, column=0, sticky="ew", pady=16)
+            return
 
-            self.password_label = Label(self.right_container, text="Salasana:")
-            self.password_label.grid(row=1, column=0, sticky="w")
+        self.listbox.activate(0)
 
-            self.password_field = Entry(self.right_container, show="⏺", width=32)
-            self.password_field.grid(row=2, column=0)
+        self.header = Label(
+            self.right_container,
+            textvariable=self.controller.state.vault_heading_content,
+            font=("", 16),
+        )
+        self.header.grid(row=0, column=0, sticky="ew", pady=16)
 
-            self.submit_button = Button(self.right_container, text="Avaa holvi")
-            self.submit_button.grid(row=3, column=0, pady=16, sticky="w")
+        self.password_label = Label(self.right_container, text="Salasana:")
+        self.password_label.grid(row=1, column=0, sticky="w")
+
+        self.password_field = Entry(self.right_container, show="⏺", width=32)
+        self.password_field.grid(row=2, column=0)
+
+        self.submit_button = Button(self.right_container, text="Avaa holvi")
+        self.submit_button.grid(row=3, column=0, pady=16, sticky="w")
 
     def _on_listbox_selection_change(self, _):
         index = self.listbox.curselection()
