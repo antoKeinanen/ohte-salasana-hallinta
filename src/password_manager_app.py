@@ -18,7 +18,7 @@ class PasswordManagerApp(Tk):
         self.grid_rowconfigure(0, weight=1)
 
         self.defaultFont = font.nametofont("TkDefaultFont")
-        self.defaultFont.configure(family="Arial", weight=font.NORMAL)
+        self.defaultFont.configure(family="Roboto", weight=font.NORMAL)
 
         self.textFont = font.nametofont("TkTextFont")
-        self.textFont.configure(family="Arial")
+        self.textFont.configure(family="Roboto")
