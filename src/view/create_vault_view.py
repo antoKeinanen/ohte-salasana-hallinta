@@ -30,7 +30,7 @@ class CreateVaultView(Frame):
         self.password_label = Label(self.container, text="Salasana")
         self.password_label.grid(sticky="w")
 
-        self.password_field = Entry(self.container, show="⏺", width=32)
+        self.password_field = Entry(self.container, show="*", width=32)
         self.password_field.grid()
 
         self.button_container = Frame(self.container)

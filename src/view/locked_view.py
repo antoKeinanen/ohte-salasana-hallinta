@@ -51,7 +51,7 @@ class LockedView(Frame):
         self.password_label = Label(self.right_container, text="Salasana:")
         self.password_label.grid(row=1, column=0, sticky="w")
 
-        self.password_field = Entry(self.right_container, show="⏺", width=32)
+        self.password_field = Entry(self.right_container, show="*", width=32)
         self.password_field.grid(row=2, column=0)
 
         self.submit_button = Button(self.right_container, text="Avaa holvi")
