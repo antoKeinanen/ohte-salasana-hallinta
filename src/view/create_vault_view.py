@@ -18,7 +18,7 @@ class CreateVaultView(Frame):
         self.container = Frame(self)
         self.container.grid()
 
-        self.heading = Label(self.container, text="Luo uusi holvi", font=("", 16))
+        self.heading = Label(self.container, text="Luo uusi holvi", font=("Arial", 16))
         self.heading.grid(pady=16)
 
         self.name_label = Label(self.container, text="Holvin nimi")

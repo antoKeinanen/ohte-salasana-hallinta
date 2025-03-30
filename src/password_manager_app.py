@@ -1,5 +1,6 @@
 from tkinter import Tk, font
 
+
 class PasswordManagerApp(Tk):
     def __init__(self):
         super().__init__()
@@ -18,3 +19,6 @@ class PasswordManagerApp(Tk):
 
         self.defaultFont = font.nametofont("TkDefaultFont")
         self.defaultFont.configure(family="Arial", weight=font.NORMAL)
+
+        self.textFont = font.nametofont("TkTextFont")
+        self.textFont.configure(family="Arial")

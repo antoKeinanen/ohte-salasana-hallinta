@@ -44,7 +44,7 @@ class LockedView(Frame):
         self.header = Label(
             self.right_container,
             textvariable=self.controller.state.vault_heading_content,
-            font=("", 16),
+            font=("Arial", 16),
         )
         self.header.grid(row=0, column=0, sticky="ew", pady=16)
 
