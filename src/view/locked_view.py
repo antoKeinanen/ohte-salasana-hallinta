@@ -16,8 +16,8 @@ class LockedView(Frame):
         self.grid_rowconfigure(0, weight=1)
 
         self.listbox = Listbox(self)
-        for _, db_name in self.controller.state.vaults:
-            self.listbox.insert("end", db_name)
+        for database in self.controller.state.vaults:
+            self.listbox.insert("end", database.name)
         self.listbox.grid(row=0, column=0, sticky="ns")
         self.listbox.bind("<<ListboxSelect>>", self._on_listbox_selection_change)
 
