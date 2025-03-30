@@ -17,7 +17,7 @@ class CreateVaultController:
         error = database_service.create_database(name)
         if not error:
             self._app_controller.swap_view("locked")
-            messagebox.showinfo(f"Holvi {name} luotu onnistuneesti")
+            messagebox.showinfo("Holvi luotu!", f"Holvi '{name}' luotu onnistuneesti")
             return
 
         messagebox.showerror("Holvin luonti epäonnistui!", error)
