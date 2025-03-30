@@ -10,7 +10,7 @@ Harjoitustyönä ajattelin tehdä salasanan hallinta ohjelman.
   - [unicafe](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/laskarit/viikko2/unicafe)
 - Viikko 3
   - [monopoli](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/laskarit/viikko3/monopoli.md)
-  - [unicafe](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/laskarit/viikko3/sekvenssikaavio.md)
+  - [sekvenssikaavio](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/laskarit/viikko3/sekvenssikaavio.md)
 
 ## Harjoitustyö
 
