@@ -21,7 +21,15 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 testpaths = "src"
-pythonpath = [
-  "./src/"
-]
+pythonpath = ["./src/"]
 
+[tool.coverage.run]
+source = ["src"]
+omit = [
+  "src/test/**",
+  "src/view/**",
+  "src/**/__init__.py",
+  "src/**/app_controller.py",
+  "password_manager_app.py",
+  "main.py",
+]
