@@ -1,6 +1,6 @@
 from pathlib import Path
-import platformdirs
 from glob import glob
+import platformdirs
 from model.database import Database
 
 
@@ -33,6 +33,8 @@ class DatabaseService:
         db_path.touch()
 
         self.discover_databases()
+
+        return None
 
 
 database_service = DatabaseService()

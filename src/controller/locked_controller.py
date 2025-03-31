@@ -1,9 +1,9 @@
 from __future__ import annotations
-from model.locked_state import LockedState
 from tkinter import StringVar, Widget
+from typing import TYPE_CHECKING
 from view.locked_view import LockedView
 from service.database_service import database_service
-from typing import TYPE_CHECKING
+from model.locked_state import LockedState
 
 if TYPE_CHECKING:
     from controller.app_controller import AppController

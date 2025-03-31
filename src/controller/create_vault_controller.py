@@ -1,8 +1,8 @@
 from __future__ import annotations
-from view.create_vault_view import CreateVaultView
 from typing import TYPE_CHECKING
-from service.database_service import database_service
 from tkinter import messagebox, Widget
+from service.database_service import database_service
+from view.create_vault_view import CreateVaultView
 
 if TYPE_CHECKING:
     from controller.app_controller import AppController
@@ -17,7 +17,8 @@ class CreateVaultController:
         error = database_service.create_database(name)
         if not error:
             self._app_controller.swap_view("locked")
-            messagebox.showinfo("Holvi luotu!", f"Holvi '{name}' luotu onnistuneesti")
+            messagebox.showinfo(
+                "Holvi luotu!", f"Holvi '{name}' luotu onnistuneesti")
             return
 
         messagebox.showerror("Holvin luonti epäonnistui!", error)
