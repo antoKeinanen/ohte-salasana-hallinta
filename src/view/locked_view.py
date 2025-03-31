@@ -19,7 +19,8 @@ class LockedView(Frame):
         for database in self.controller.state.vaults:
             self.listbox.insert("end", database.name)
         self.listbox.grid(row=0, column=0, sticky="ns")
-        self.listbox.bind("<<ListboxSelect>>", self._on_listbox_selection_change)
+        self.listbox.bind("<<ListboxSelect>>",
+                          self._on_listbox_selection_change)
 
         self.create_vault_button = Button(
             self,

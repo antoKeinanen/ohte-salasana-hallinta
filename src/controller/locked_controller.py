@@ -24,7 +24,8 @@ class LockedController:
 
     def set_active_vault(self, index: int):
         self.state.selected_database = index
-        self.state.vault_heading_content.set(f"Avaa {self.state.vaults[index].name}")
+        self.state.vault_heading_content.set(
+            f"Avaa {self.state.vaults[index].name}")
 
     def swap_to_create_vault_view(self):
         self._app_controller.swap_view("create-vault")
