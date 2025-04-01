@@ -1,22 +1,24 @@
 from __future__ import annotations
-from tkinter import Frame, Listbox, Button, Label, Entry
+from tkinter import Frame, Listbox, Button, Label, Entry, StringVar
 from typing import TYPE_CHECKING
+from service.vault_service import vault_service
 
 if TYPE_CHECKING:
-    from controller.locked_controller import LockedController
+    from controller.view_controller import ViewController
 
 
 class LockedView(Frame):
-    def __init__(self, controller: LockedController, *args, **kwargs):
+    def __init__(self, view_controller: ViewController, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.controller = controller
+        self._view_controller = view_controller
+        self._vaults = vault_service.discover_vaults()
 
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
         self.listbox = Listbox(self)
-        for database in self.controller.state.vaults:
+        for database in self._vaults:
             self.listbox.insert("end", database.name)
         self.listbox.grid(row=0, column=0, sticky="ns")
         self.listbox.bind("<<ListboxSelect>>",
@@ -32,7 +34,7 @@ class LockedView(Frame):
         self.right_container = Frame(self)
         self.right_container.grid(row=0, column=1, rowspan=2)
 
-        if not self.controller.state.vaults:
+        if not self._vaults:
             self.header = Label(
                 self.right_container,
                 text="Luo uusi hovi painamalla luo uusi holvi nappia",
@@ -40,11 +42,15 @@ class LockedView(Frame):
             self.header.grid(row=0, column=0, sticky="ew", pady=16)
             return
 
-        self.listbox.activate(0)
+        self._selected_vault_index = 0
+        self.listbox.activate(self._selected_vault_index)
+
+        self._header_text = StringVar(
+            self, f"Avaa {self._vaults[self._selected_vault_index].name}")
 
         self.header = Label(
             self.right_container,
-            textvariable=self.controller.state.vault_heading_content,
+            textvariable=self._header_text,
             font=("Arial", 16),
         )
         self.header.grid(row=0, column=0, sticky="ew", pady=16)
@@ -61,7 +67,7 @@ class LockedView(Frame):
     def _on_listbox_selection_change(self, _):
         index = self.listbox.curselection()
         if index:
-            self.controller.set_active_vault(index[0])
+            (self._selected_vault_index,) = index
 
     def _on_create_vault_button_click(self):
-        self.controller.swap_to_create_vault_view()
+        self._view_controller.swap_view("create-vault")

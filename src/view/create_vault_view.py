@@ -1,16 +1,17 @@
 from __future__ import annotations
-from tkinter import Frame, Label, Entry, Button
+from tkinter import Frame, Label, Entry, Button, messagebox
 from typing import TYPE_CHECKING
+from service.vault_service import vault_service
 
 if TYPE_CHECKING:
-    from controller.create_vault_controller import CreateVaultController
+    from controller.view_controller import ViewController
 
 
 class CreateVaultView(Frame):
-    def __init__(self, controller: CreateVaultController, *args, **kwargs):
+    def __init__(self, view_controller: ViewController, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self._controller = controller
+        self._view_controller = view_controller
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -40,7 +41,7 @@ class CreateVaultView(Frame):
         self.cancel_button = Button(
             self.button_container,
             text="Peruuta",
-            command=self._controller.swap_to_locked_view,
+            command=self._swap_to_locked_view,
         )
         self.cancel_button.pack(side="left", padx=8)
 
@@ -51,6 +52,13 @@ class CreateVaultView(Frame):
         )
         self.create_button.pack(side="right", padx=8)
 
+    def _swap_to_locked_view(self):
+        self._view_controller.swap_view("locked")
+
     def _create_vault(self):
         name = self.name_field.get()
-        self._controller.create_new_vault(name)
+        error = vault_service.create_vault(name)
+        if error:
+            messagebox.showerror("Holvin lunti epäonnistui", error)
+            return
+        self._swap_to_locked_view()
