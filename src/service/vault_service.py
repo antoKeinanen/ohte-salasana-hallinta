@@ -2,6 +2,7 @@ from pathlib import Path
 from glob import glob
 import platformdirs
 from model.vault import Vault
+from service.database_service import db_execute_script
 
 
 class VaultService:
@@ -28,15 +29,28 @@ class VaultService:
         if not all(c.isalnum() or c in "-_" for c in name):
             return "Holvin nimi voi sisältää vain kirjaimia, numeroita, alaviivoja ja viivoja"
 
-        db_path = self.base_path.joinpath(f"{name}.db")
-        if db_path.exists():
+        vault_path = self.base_path.joinpath(f"{name}.db")
+        if vault_path.exists():
             return f"Holvi {name} on jo olemassa"
 
-        db_path.touch()
+        vault_path.touch()
+
+        self._seed_vault_db(vault_path)
 
         self.discover_vaults()
 
         return None
+
+    def _seed_vault_db(self, vault_path: Path):
+        script = """
+        CREATE TABLE credentials (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL
+        );
+        """
+        db_execute_script(vault_path, script)
 
 
 vault_service = VaultService()
