@@ -18,7 +18,7 @@ class CredentialRepository:
         WHERE id = ?;
         """
 
-        db_fetch(path, command, [credential_id])
+        return db_fetch(path, command, [credential_id])
 
     def create_credential(self, path: Path, credential: Credential):
         command = """
