@@ -49,7 +49,7 @@ class CreateCredentialView(Frame):
         self.cancel_button = Button(
             self.button_container,
             text="Peruuta",
-            command=self._swap_to_locked_view,
+            command=self._swap_to_vault_view,
         )
         self.cancel_button.pack(side="left", padx=8)
 
@@ -60,8 +60,8 @@ class CreateCredentialView(Frame):
         )
         self.create_button.pack(side="right", padx=8)
 
-    def _swap_to_locked_view(self):
-        self._view_controller.swap_view("locked")
+    def _swap_to_vault_view(self):
+        self._view_controller.swap_view("vault")
 
     def _create_credential(self):
         name = self.name_field.get()
@@ -71,3 +71,5 @@ class CreateCredentialView(Frame):
         credential = Credential(-1, name, username, password)
 
         self._credential_service.add_credential(credential)
+
+        self._swap_to_vault_view()

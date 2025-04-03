@@ -29,7 +29,7 @@ class VaultView(Frame):
         self.create_vault_button = Button(
             self,
             text="+ Luo uusi tunnus",
-            command=self._on_create_vault_button_click,
+            command=self._on_create_credential_button_click,
         )
         self.create_vault_button.grid(row=1, column=0, sticky="nsew")
 
@@ -45,32 +45,45 @@ class VaultView(Frame):
             return
 
         self._selected_vault_index = 0
+        self._selected_credential = self._vault.credentials[self._selected_vault_index]
         self.listbox.activate(self._selected_vault_index)
 
-        self._header_text = StringVar(
-            self, f"Avaa {self._credentials[self._selected_vault_index].name}"
+        self._username_text = StringVar(
+            self,
+            f"Käyttäjätunnus: {self._selected_credential.username}",
+        )
+        self._password_text = StringVar(
+            self,
+            f"Salasana: {self._selected_credential.password}",
         )
 
-        self.header = Label(
+        self.username_label = Label(
             self.right_container,
-            textvariable=self._header_text,
-            font=("Arial", 16),
+            textvariable=self._username_text,
         )
-        self.header.grid(row=0, column=0, sticky="ew", pady=16)
+        self.username_label.grid(row=0, column=0, sticky="ew")
 
-        self.password_label = Label(self.right_container, text="Salasana:")
-        self.password_label.grid(row=1, column=0, sticky="w")
+        self.password_label = Label(
+            self.right_container,
+            textvariable=self._password_text,
+        )
 
-        self.password_field = Entry(self.right_container, show="*", width=32)
-        self.password_field.grid(row=2, column=0)
-
-        self.submit_button = Button(self.right_container, text="Avaa holvi")
-        self.submit_button.grid(row=3, column=0, pady=16, sticky="w")
+        self.password_label.grid(row=1, column=0, sticky="ew")
 
     def _on_listbox_selection_change(self, _):
         index = self.listbox.curselection()
         if index:
             (self._selected_vault_index,) = index
+            self._selected_credential = self._vault.credentials[
+                self._selected_vault_index
+            ]
 
-    def _on_create_vault_button_click(self):
+            self._username_text.set(
+                f"Käyttäjätunnus: {self._selected_credential.username}"
+            )
+            self._password_text.set(
+                f"Salasana: {self._selected_credential.password}",
+            )
+
+    def _on_create_credential_button_click(self):
         self._view_controller.swap_view("create-credential")
