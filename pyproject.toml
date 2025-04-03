@@ -31,7 +31,7 @@ omit = [
   "src/test/**",
   "src/view/**",
   "src/**/__init__.py",
+  "src/**/view_controller.py",
   "src/**/app_controller.py",
-  "password_manager_app.py",
   "main.py",
 ]
