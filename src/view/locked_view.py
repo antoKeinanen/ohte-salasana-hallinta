@@ -72,6 +72,9 @@ class LockedView(Frame):
         index = self.listbox.curselection()
         if index:
             (self._selected_vault_index,) = index
+            self._header_text.set(
+                f"Avaa {self._vaults[self._selected_vault_index].name}"
+            )
 
     def _on_create_vault_button_click(self):
         self._view_controller.swap_view("create-vault")
