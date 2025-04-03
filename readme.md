@@ -1,5 +1,12 @@
 # Ohjelmistotekniikka, harjoitustyö
 
+## Dokumentaatio
+
+- [Arkkitehtuuri](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/arkkitehtuuri.md)
+- [Vaatimusmäärittely](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/vaatimusmaarittely.md)
+- [Changelog](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/changelog.md)
+- [Työkirjanpito](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/työkirjanpito.md)
+
 ## Asennus ja käyttö
 
 ```bash
