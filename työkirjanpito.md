@@ -11,3 +11,4 @@
 | 1.4.  | 2.5h  | Refaktorointia                                |
 | 2.4.  | 1h    | Lisäsin CredentialRepository:n ja -Service:n  |
 | 3.4.  | 0.5h  | Bugi korjauksia ja dokumentaatiota            |
+| YHT   | 13h   |                                               |
