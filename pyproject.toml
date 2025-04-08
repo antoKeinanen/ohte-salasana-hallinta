@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "projekti"
+name = "src"
 version = "0.1.0"
 description = ""
 authors = ["Anto Keinänen <anto.keinanen@helsinki.fi>"]
