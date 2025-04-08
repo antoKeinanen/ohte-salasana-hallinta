@@ -1,3 +1,15 @@
+## Viikko 4
+
+- Käyttäjä voi lisätä uuden tunnuksen holviin
+- Käyttäjä näkee holvissa olevat tunnukset
+- Lisätty laadunvarmistus
+- Lisätty automaattinen koodin formatointi
+- Poistettu näkymäkohtaiset ajuriluokat
+- Siirretty näkymäkohtaiset tilat erillisestä luokasta näkymäluokan sisään
+- Lisätty näkymäajuri luokka
+- Lisätty tunnus ja holvi dataluokat
+- Uusittu tietokanta ja holvi palvelut
+
 ## Viikko 3
 
 - Käyttäjä näkee listan kaikista olemassaolevista holveista

@@ -1,38 +1,43 @@
+import sqlite3
+from sqlite3 import Cursor
+from collections.abc import Callable
+from typing import Any
 from pathlib import Path
-import platformdirs
-from glob import glob
-from model.database import Database
 
 
-class DatabaseService:
-    def __init__(self, base_path: None | Path = None):
-        self.base_path = Path(
-            base_path or platformdirs.user_data_path("password-manager")
-        )
-
-    def discover_databases(self):
-        if not self.base_path.exists():
-            self.base_path.mkdir(parents=True)
-
-        db_pattern = str(Path(self.base_path).joinpath("*.db"))
-        matches = glob(db_pattern)
-        names = [Path(match).name.removesuffix(".db") for match in matches]
-        paths = [Path(match) for match in matches]
-        return [Database(*db) for db in zip(paths, names)]
-
-    def create_database(self, name: str):
-        if not name:
-            return "Syötä holville nimi"
-        if not all(c.isalnum() or c in "-_" for c in name):
-            return "Holvin nimi voi sisältää vain kirjaimia, numeroita, alaviivoja ja viivoja"
-
-        db_path = self.base_path.joinpath(f"{name}.db")
-        if db_path.exists():
-            return f"Holvi {name} on jo olemassa"
-
-        db_path.touch()
-
-        self.discover_databases()
+def _perform_db_operation(path: Path, action: Callable[[Cursor], Any]):
+    with sqlite3.connect(path) as connection:
+        cursor = connection.cursor()
+        return action(cursor)
 
 
-database_service = DatabaseService()
+def db_execute_script(path: Path, sql_script: str):
+    def execute_script(cursor: Cursor):
+        cursor.executescript(sql_script)
+
+    _perform_db_operation(path, execute_script)
+
+
+def db_execute(path: Path, sql_command: str, arguments: list | None = None):
+    def execute(cursor: Cursor):
+        return cursor.execute(sql_command, arguments).lastrowid
+
+    return _perform_db_operation(path, execute)
+
+
+def db_fetch(
+    path: Path, sql_command: str, arguments: list | None = None, size: int = 1
+):
+    def fetch(cursor: Cursor):
+        cursor.execute(sql_command, arguments)
+        return cursor.fetchmany(size)
+
+    return _perform_db_operation(path, fetch)
+
+
+def db_fetch_all(path: Path, sql_command: str, arguments: list | None = None):
+    def fetch_all(cursor: Cursor):
+        cursor.execute(sql_command, arguments)
+        return cursor.fetchall()
+
+    return _perform_db_operation(path, fetch_all)

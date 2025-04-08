@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "projekti"
+name = "src"
 version = "0.1.0"
 description = ""
 authors = ["Anto Keinänen <anto.keinanen@helsinki.fi>"]
@@ -14,6 +14,8 @@ platformdirs = "^4.3.6"
 pytest = "^8.3.5"
 coverage = "7.6.12"
 invoke = "^2.2.0"
+pylint = "^3.3.6"
+autopep8 = "^2.3.2"
 
 [build-system]
 requires = ["poetry-core"]
@@ -22,14 +24,3 @@ build-backend = "poetry.core.masonry.api"
 [tool.pytest.ini_options]
 testpaths = "src"
 pythonpath = ["./src/"]
-
-[tool.coverage.run]
-source = ["src"]
-omit = [
-  "src/test/**",
-  "src/view/**",
-  "src/**/__init__.py",
-  "src/**/app_controller.py",
-  "password_manager_app.py",
-  "main.py",
-]
