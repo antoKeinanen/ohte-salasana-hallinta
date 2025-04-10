@@ -21,8 +21,6 @@ class VaultView(Frame):
         self.grid_rowconfigure(0, weight=1)
 
         self.listbox = Listbox(self)
-        for credential in self._credentials:
-            self.listbox.insert("end", credential.name)
         self.listbox.grid(row=0, column=0, sticky="ns")
         self.listbox.bind("<<ListboxSelect>>", self._on_listbox_selection_change)
 
@@ -45,58 +43,62 @@ class VaultView(Frame):
             return
 
         self._selected_vault_index = 0
-        self._selected_credential = self._vault.credentials[self._selected_vault_index]
-        self.listbox.activate(self._selected_vault_index)
+        self._selected_credential = self._credentials[self._selected_vault_index]
 
         self._username_text = StringVar(
-            self,
-            f"Käyttäjätunnus: {self._selected_credential.username}",
+            self, f"Käyttäjätunnus: {self._selected_credential.username}"
         )
         self._password_text = StringVar(
-            self,
-            f"Salasana: {self._selected_credential.password}",
+            self, f"Salasana: {self._selected_credential.password}"
         )
 
         self.username_label = Label(
-            self.right_container,
-            textvariable=self._username_text,
+            self.right_container, textvariable=self._username_text
         )
         self.username_label.grid(row=0, column=0, sticky="ew")
 
         self.password_label = Label(
-            self.right_container,
-            textvariable=self._password_text,
+            self.right_container, textvariable=self._password_text
         )
-
         self.password_label.grid(row=1, column=0, sticky="ew")
 
         self.button_row = Frame(self.right_container)
         self.button_row.grid(pady=16)
 
         self.delete_button = Button(
-            self.button_row,
-            text="Poista",
-            command=self._on_delete_button_click,
+            self.button_row, text="Poista", command=self._on_delete_button_click
         )
         self.delete_button.grid()
 
-    def _on_listbox_selection_change(self, _):
-        index = self.listbox.curselection()
-        if index:
-            (self._selected_vault_index,) = index
-            self._selected_credential = self._vault.credentials[
-                self._selected_vault_index
-            ]
+        self._refresh_credential_list()
 
-            self._username_text.set(
-                f"Käyttäjätunnus: {self._selected_credential.username}"
-            )
-            self._password_text.set(
-                f"Salasana: {self._selected_credential.password}",
-            )
+    def _refresh_credential_list(self):
+        self.listbox.delete(0, "end")
+        if not self._credentials:
+            return
+
+        for credential in self._credentials:
+            self.listbox.insert("end", credential.name)
+
+        self._selected_credential = self._credentials[self._selected_vault_index]
+        self.listbox.activate(self._selected_vault_index)
+        self._update_credential_text()
+
+    def _update_credential_text(self):
+        self._username_text.set(f"Käyttäjätunnus: {self._selected_credential.username}")
+        self._password_text.set(f"Salasana: {self._selected_credential.password}")
+
+    def _on_listbox_selection_change(self, _):
+        selection = self.listbox.curselection()
+        if selection:
+            self._selected_vault_index = selection[0]
+            self._selected_credential = self._credentials[self._selected_vault_index]
+            self._update_credential_text()
 
     def _on_delete_button_click(self):
         self._credential_service.delete_credential(self._selected_credential)
+        self._credentials = self._vault.credentials
+        self._refresh_credential_list()
 
     def _on_create_credential_button_click(self):
         self._view_controller.swap_view("create-credential")
