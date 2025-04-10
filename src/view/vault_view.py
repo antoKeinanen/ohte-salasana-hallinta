@@ -1,5 +1,5 @@
 from __future__ import annotations
-from tkinter import Frame, Listbox, Button, Label, Entry, StringVar
+from tkinter import Frame, Listbox, Button, Label, StringVar
 from typing import TYPE_CHECKING
 from service.credential_service import CredentialService
 
@@ -70,6 +70,16 @@ class VaultView(Frame):
 
         self.password_label.grid(row=1, column=0, sticky="ew")
 
+        self.button_row = Frame(self.right_container)
+        self.button_row.grid(pady=16)
+
+        self.delete_button = Button(
+            self.button_row,
+            text="Poista",
+            command=self._on_delete_button_click,
+        )
+        self.delete_button.grid()
+
     def _on_listbox_selection_change(self, _):
         index = self.listbox.curselection()
         if index:
@@ -84,6 +94,9 @@ class VaultView(Frame):
             self._password_text.set(
                 f"Salasana: {self._selected_credential.password}",
             )
+
+    def _on_delete_button_click(self):
+        self._credential_service.delete_credential(self._selected_credential)
 
     def _on_create_credential_button_click(self):
         self._view_controller.swap_view("create-credential")
