@@ -70,11 +70,19 @@ class VaultView(Frame):
         )
         self.delete_button.grid()
 
-        self._refresh_credential_list()
+        self._refresh_view()
 
-    def _refresh_credential_list(self):
+    def _refresh_view(self):
         self.listbox.delete(0, "end")
         if not self._credentials:
+            for child in [*self.right_container.children.values()]:
+                child.destroy()
+
+            self.header = Label(
+                self.right_container,
+                text="Luo uusi tunnus painamalla 'Luo uusi tunnus' nappia",
+            )
+            self.header.grid(row=0, column=0, sticky="ew", pady=16)
             return
 
         for credential in self._credentials:
@@ -99,7 +107,7 @@ class VaultView(Frame):
         self._credential_service.delete_credential(self._selected_credential)
         self._credentials = self._vault.credentials
         self._selected_vault_index = 0
-        self._refresh_credential_list()
+        self._refresh_view()
 
     def _on_create_credential_button_click(self):
         self._view_controller.swap_view("create-credential")
