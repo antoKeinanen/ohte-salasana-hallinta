@@ -20,7 +20,7 @@ Vaikka sovellus tukeekin montaa käyttäjää on käyttäjätyyppejä vain yksi.
 - [x] Käyttäjä voi lisätä uuden tunnuksen
 - [x] Käyttäjä näkee listan holvissa olevista tunnuksista
 - [x] Käyttäjä voi poistaa tunnuksen
-- [ ] Käyttäjä voi lukea tunnuksen tiedot
+- [x] Käyttäjä voi lukea tunnuksen tiedot
 - [ ] Käyttäjä voi muokata tunnusta
 
 ### Muita vaatimuksia
