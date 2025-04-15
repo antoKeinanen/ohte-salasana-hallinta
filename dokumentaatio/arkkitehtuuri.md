@@ -1,3 +1,7 @@
+# Arkkitehtuuri
+
+## Rakenne
+
 ```mermaid
 classDiagram
 
@@ -47,4 +51,22 @@ Vault "1" -- "*" Credential
 CredentialService --> Credential
 AppController --> Vault
 
+```
+
+### Holvin luonti
+
+```mermaid
+sequenceDiagram
+actor Käyttäjä
+participant UI
+participant VaultService
+
+Käyttäjä ->> UI: paina "luo holvi" nappia
+
+UI ->>+ VaultService: create_vault("holvi1")
+VaultService ->> VaultService: _seed_vault_db("<user_data_path>/holvi1.db")
+VaultService ->> VaultService: discover_vaults()
+VaultService -->>- UI: None
+
+UI -->> Käyttäjä: None
 ```
