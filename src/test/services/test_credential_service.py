@@ -28,6 +28,9 @@ class DummyCredentialRepository:
         self.credentials.append(credential)
         return new_id
 
+    def delete_credential(self, _path, credential):
+        self.credentials.remove(credential)
+
 
 class TestCredentialService(TestCase):
     def setUp(self):
@@ -64,3 +67,16 @@ class TestCredentialService(TestCase):
         self.assertEqual(added_cred.username, "user3")
 
         self.assertIn(added_cred, self.repo.credentials)
+
+    def test_delete_credential(self):
+        self.service.get_all_credentials()
+
+        credential_to_delete = self.vault.credentials[0]
+
+        self.assertIn(credential_to_delete, self.vault.credentials)
+        self.assertIn(credential_to_delete, self.repo.credentials)
+
+        self.service.delete_credential(credential_to_delete)
+
+        self.assertNotIn(credential_to_delete, self.vault.credentials)
+        self.assertNotIn(credential_to_delete, self.repo.credentials)
