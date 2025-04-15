@@ -19,9 +19,9 @@ Vaikka sovellus tukeekin montaa käyttäjää on käyttäjätyyppejä vain yksi.
 ### Kirjautumisen jälkeen
 - [x] Käyttäjä voi lisätä uuden tunnuksen
 - [x] Käyttäjä näkee listan holvissa olevista tunnuksista
+- [x] Käyttäjä voi poistaa tunnuksen
 - [ ] Käyttäjä voi lukea tunnuksen tiedot
 - [ ] Käyttäjä voi muokata tunnusta
-- [ ] Käyttäjä voi poistaa tunnuksen
 
 ### Muita vaatimuksia
 - [ ] Holvin tulee olla salattu kun se ei ole käytössä

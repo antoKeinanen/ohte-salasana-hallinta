@@ -36,3 +36,11 @@ class CredentialRepository:
                 credential.password,
             ],
         )
+
+    def delete_credential(self, path: Path, credential: Credential):
+        command = """
+        DELETE FROM credentials
+        WHERE id = ?;
+        """
+
+        db_execute(path, command, [credential.id])
