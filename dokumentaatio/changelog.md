@@ -1,3 +1,7 @@
+## Viikko 5
+
+- Käyttäjä voi poistaa tunnuksia
+
 ## Viikko 4
 
 - Käyttäjä voi lisätä uuden tunnuksen holviin
