@@ -20,9 +20,7 @@ poetry install
 poetry run invoke start
 ```
 
-## Yksikkötestaus
-
-Olettaen että olet suorittanut asennuksen vaiheet:
+### Yksikkötestaus
 
 ```bash
 # Suorita testit
@@ -30,4 +28,16 @@ poetry run invoke test
 
 # Testikattavuuden mittaaminen. Mittauksen tulokset tulevat htmlcov kansioon
 poetry run invoke coverage-report
+```
+
+### Koodin automaattinen muotoilu
+
+```bash
+poetry run invoke format
+```
+
+### Koodin laadun varmistus
+
+```bash
+poetry run invoke lint
 ```
