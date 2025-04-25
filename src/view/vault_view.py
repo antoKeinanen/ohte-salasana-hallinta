@@ -70,6 +70,11 @@ class VaultView(Frame):
         )
         self.delete_button.grid()
 
+        self.update_button = Button(
+            self.button_row, text="Muokkaa", command=self._on_update_button_click
+        )
+        self.update_button.grid()
+
         self._refresh_view()
 
     def _refresh_view(self):
@@ -111,3 +116,8 @@ class VaultView(Frame):
 
     def _on_create_credential_button_click(self):
         self._view_controller.swap_view("create-credential")
+
+    def _on_update_button_click(self):
+        self._view_controller.swap_view(
+            "update-credential", credential=self._selected_credential
+        )

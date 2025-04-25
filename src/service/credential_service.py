@@ -27,3 +27,10 @@ class CredentialService:
     def delete_credential(self, credential: Credential):
         self.repository.delete_credential(self.vault.path, credential)
         self.vault.credentials.remove(credential)
+
+    def update_credential(self, credential: Credential):
+        self.repository.update_credential(self.vault.path, credential)
+        self.vault.credentials = [
+            cred for cred in self.vault.credentials if cred.id != credential.id
+        ]
+        self.vault.credentials.append(credential)

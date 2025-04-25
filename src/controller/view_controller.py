@@ -5,11 +5,14 @@ from view.locked_view import LockedView
 from view.create_vault_view import CreateVaultView
 from view.vault_view import VaultView
 from view.create_credential_view import CreateCredentialView
+from view.update_credential_view import UpdateCredentialView
 
 if TYPE_CHECKING:
     from controller.app_controller import AppController
 
-ViewName = Literal["locked", "create-vault", "vault", "create-credential"]
+ViewName = Literal[
+    "locked", "create-vault", "vault", "create-credential", "update-credential"
+]
 
 
 class ViewController:
@@ -20,14 +23,15 @@ class ViewController:
             "create-vault": CreateVaultView,
             "vault": VaultView,
             "create-credential": CreateCredentialView,
+            "update-credential": UpdateCredentialView
         }
         self._current_view = "locked"
         self._active_view: Frame = self._views[self._current_view](self)
         self._active_view.grid(row=0, column=0, sticky="nsew")
 
-    def swap_view(self, new_view: ViewName):
+    def swap_view(self, new_view: ViewName, **props):
         self._active_view.grid_remove()
 
         self._current_view = new_view
-        self._active_view = self._views[self._current_view](self)
+        self._active_view = self._views[self._current_view](self, **props)
         self._active_view.grid(row=0, column=0, sticky="nsew")

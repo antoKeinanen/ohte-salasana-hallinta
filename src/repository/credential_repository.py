@@ -44,3 +44,24 @@ class CredentialRepository:
         """
 
         db_execute(path, command, [credential.id])
+
+    def update_credential(self, path: Path, credential: Credential):
+        command = """
+        UPDATE credentials
+        SET
+            name = ?,
+            username = ?,
+            password = ?
+        WHERE id = ?;
+        """
+
+        db_execute(
+            path,
+            command,
+            [
+                credential.name,
+                credential.username,
+                credential.password,
+                credential.id,
+            ],
+        )
