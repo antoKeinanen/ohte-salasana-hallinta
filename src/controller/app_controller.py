@@ -12,6 +12,7 @@ class AppController:
         self.app = app
         self.view_controller = ViewController(self)
         self.active_vault: Vault | None = None
+        self.password: str | None = None
 
     def run_main_loop(self):
         self.app.mainloop()

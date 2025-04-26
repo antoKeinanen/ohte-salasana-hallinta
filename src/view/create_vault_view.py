@@ -56,7 +56,9 @@ class CreateVaultView(Frame):
 
     def _create_vault(self):
         name = self.name_field.get()
-        error = vault_service.create_vault(name)
+        password = self.password_field.get()
+
+        error = vault_service.create_vault(name, password)
         if error:
             messagebox.showerror("Holvin luonti epäonnistui", error)
             return

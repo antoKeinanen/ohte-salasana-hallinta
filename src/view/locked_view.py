@@ -1,5 +1,5 @@
 from __future__ import annotations
-from tkinter import Frame, Listbox, Button, Label, Entry, StringVar
+from tkinter import Frame, Listbox, Button, Label, Entry, StringVar, messagebox
 from typing import TYPE_CHECKING
 from service.vault_service import vault_service
 
@@ -81,5 +81,13 @@ class LockedView(Frame):
 
     def _on_open_vault_button_click(self):
         vault = self._vaults[self._selected_vault_index]
+        password = self.password_field.get()
+
+        is_authenticated = vault_service.validate_authentication(vault.path, password)
+
+        if not is_authenticated:
+            messagebox.showerror("Virheellinen salasana", "Syöttämäsi salasana on väärä.")
+            return
+
         self._view_controller.app_controller.active_vault = vault
         self._view_controller.swap_view("vault")
