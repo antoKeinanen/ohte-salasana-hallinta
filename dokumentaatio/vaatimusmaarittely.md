@@ -22,6 +22,7 @@ Vaikka sovellus tukeekin montaa käyttäjää on käyttäjätyyppejä vain yksi.
 - [x] Käyttäjä voi poistaa tunnuksen
 - [x] Käyttäjä voi lukea tunnuksen tiedot
 - [x] Käyttäjä voi muokata tunnusta
+- [x] Käyttäjä voi sulkea avatun holvin
 
 ### Muita vaatimuksia
 - [ ] Holvin tulee olla salattu kun se ei ole käytössä
