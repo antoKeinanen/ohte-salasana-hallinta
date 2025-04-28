@@ -44,7 +44,7 @@ class TestVaultService(TestCase):
 
     def test_create_vault_creates_new_vault(self):
         name = "new_vault"
-        result = self.vault_service.create_vault(name)
+        result = self.vault_service.create_vault(name, "testpass123")
 
         db_path = self.path.joinpath(f"{name}.db")
         self.assertTrue(db_path.exists())
@@ -55,19 +55,19 @@ class TestVaultService(TestCase):
         db_path = self.path.joinpath(f"{name}.db")
         db_path.touch()
 
-        result = self.vault_service.create_vault(name)
+        result = self.vault_service.create_vault(name, "testpass123")
 
         self.assertEqual(result, f"Holvi {name} on jo olemassa")
         self.assertTrue(db_path.exists())
 
     def test_create_vault_returns_message_if_name_is_empty(self):
-        result = self.vault_service.create_vault("")
+        result = self.vault_service.create_vault("", "testpass123")
         self.assertEqual(result, "Syötä holville nimi")
 
     def test_create_vault_returns_message_if_name_contains_invalid_characters(self):
         invalid_names = ["invalid name!", "name@", "name#"]
         for name in invalid_names:
-            result = self.vault_service.create_vault(name)
+            result = self.vault_service.create_vault(name, "testpass123")
             self.assertEqual(
                 result,
                 "Holvin nimi voi sisältää vain kirjaimia, numeroita, alaviivoja ja viivoja",
@@ -75,8 +75,12 @@ class TestVaultService(TestCase):
 
     def test_create_vault_creates_vault_with_valid_name(self):
         name = "valid_name"
-        result = self.vault_service.create_vault(name)
+        result = self.vault_service.create_vault(name, "testpass123")
 
         db_path = self.path.joinpath(f"{name}.db")
         self.assertTrue(db_path.exists())
         self.assertIsNone(result)
+    
+    def test_create_vault_returns_message_if_password_is_empty(self):
+        result = self.vault_service.create_vault("valid_name", "")
+        self.assertEqual(result, "Holvilla tulee olla salasana")
