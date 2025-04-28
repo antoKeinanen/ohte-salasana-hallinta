@@ -16,7 +16,21 @@ ViewName = Literal[
 
 
 class ViewController:
+    """
+    Luokka, joka ohjaa ikkunan näkymiä.
+    
+    Attributes:
+        app_controller: viittaus koko sovellusta ohjaavaan luokkaan.
+    """
+
     def __init__(self, app_controller: AppController):
+        """
+        Alustaa luokan
+
+        Args:
+            app_controller: viittaus koko sovellusta ohjaavaan luokkaan.
+        """
+
         self.app_controller = app_controller
         self._views: dict[ViewName, Frame] = {
             "locked": LockedView,
@@ -30,6 +44,14 @@ class ViewController:
         self._active_view.grid(row=0, column=0, sticky="nsew")
 
     def swap_view(self, new_view: ViewName, **props):
+        """
+        Vaihtaa ikkunassa näkyvän näkymän
+
+        Args:
+            new_view: uuden näkymän nimi
+            props: uudelle näkymälle ohjatut kwargs argumentit
+        """
+
         self._active_view.grid_remove()
 
         self._current_view = new_view

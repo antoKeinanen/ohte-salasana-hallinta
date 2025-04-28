@@ -12,6 +12,14 @@ def _perform_db_operation(path: Path, action: Callable[[Cursor], Any]):
 
 
 def db_execute_script(path: Path, sql_script: str):
+    """
+    Ajaa scriptin tietokannassa.
+
+    Args:
+        path: tietokannan tiedostopolku
+        sql_script: ajettava scripti
+    """
+
     def execute_script(cursor: Cursor):
         cursor.executescript(sql_script)
 
@@ -19,6 +27,18 @@ def db_execute_script(path: Path, sql_script: str):
 
 
 def db_execute(path: Path, sql_command: str, arguments: list | None = None):
+    """
+    Suorittaa tietokannassa yksittäisen komennon.
+
+    Args:
+        path: tietokannan tiedostopolku
+        sql_command: suoritettava komento
+        arguments: lista komennon vaatimia argumentteja
+
+    Returns:
+        last_rowid: Viimeisimmän muuttuneen rivin id:n
+    """
+
     def execute(cursor: Cursor):
         return cursor.execute(sql_command, arguments).lastrowid
 
@@ -28,6 +48,19 @@ def db_execute(path: Path, sql_command: str, arguments: list | None = None):
 def db_fetch(
     path: Path, sql_command: str, arguments: list | None = None, size: int = 1
 ):
+    """
+    Hakee tietokannasta n riviä.
+
+    Args:
+        path: tietokannan tiedostopolku
+        sql_command: suoritettava komento
+        arguments: lista komennon vaatimia argumentteja
+        size: haettavien rivien määrä. Oletus: 1
+
+    Returns:
+        rows: hakua vastaavat n riviä.
+    """
+
     def fetch(cursor: Cursor):
         cursor.execute(sql_command, arguments)
         return cursor.fetchmany(size)
@@ -36,6 +69,18 @@ def db_fetch(
 
 
 def db_fetch_all(path: Path, sql_command: str, arguments: list | None = None):
+    """
+    Hakee tietokannasta kaikki komentoa vastaavat rivit.
+
+    Args:
+        path: tietokannan tiedostopolku
+        sql_command: suoritettava komento
+        arguments: lista komennon vaatimia argumentteja
+
+    Returns:
+        rows: hakua vastaavat rivit
+    """
+
     def fetch_all(cursor: Cursor):
         cursor.execute(sql_command, arguments)
         return cursor.fetchall()
