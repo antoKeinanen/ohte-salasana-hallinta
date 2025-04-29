@@ -6,6 +6,7 @@
 - [Vaatimusmäärittely](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/vaatimusmaarittely.md)
 - [Changelog](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/changelog.md)
 - [Työkirjanpito](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/työkirjanpito.md)
+- [Käyttöohje](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/kayttoohje.md)
 
 ## Asennus ja käyttö
 
