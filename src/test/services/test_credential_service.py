@@ -22,7 +22,8 @@ class DummyCredentialRepository:
 
     def create_credential(self, _path, credential):
         new_id = (
-            max(cred.id for cred in self.credentials) + 1 if self.credentials else 1
+            max(cred.id for cred in self.credentials) +
+            1 if self.credentials else 1
         )
         credential.id = new_id
         self.credentials.append(credential)
@@ -41,7 +42,8 @@ class TestCredentialService(TestCase):
     def setUp(self):
         self.repo = DummyCredentialRepository()
         self.vault = Vault(name="dummy", path="/dummy/path", credentials=[])
-        self.service = CredentialService(vault=self.vault, repository=self.repo)
+        self.service = CredentialService(
+            vault=self.vault, repository=self.repo)
 
     def test_get_all_credentials(self):
         self.service.get_all_credentials()

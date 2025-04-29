@@ -35,7 +35,8 @@ class UpdateCredentialView(Frame):
         self.name_label.grid(sticky="w")
 
         name_value = StringVar(self, self.credential.name)
-        self.name_field = Entry(self.container, width=32, textvariable=name_value)
+        self.name_field = Entry(self.container, width=32,
+                                textvariable=name_value)
         self.name_field.grid()
 
         self.username_label = Label(self.container, text="Käyttäjänimi")

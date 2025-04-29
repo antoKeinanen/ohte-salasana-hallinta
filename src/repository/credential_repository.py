@@ -12,7 +12,7 @@ class CredentialRepository:
 
         Args:
             path: holvin tiedostopolku
-        
+
         Returns:
             credentials: lista holvissa olevista tunnuksista
         """
@@ -29,7 +29,7 @@ class CredentialRepository:
         Args:
             path: holvin tiedostopolku
             credential_id: haettavan tunnuksen id
-        
+
         Returns:
             löydetty rivi tai None
         """

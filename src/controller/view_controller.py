@@ -18,7 +18,7 @@ ViewName = Literal[
 class ViewController:
     """
     Luokka, joka ohjaa ikkunan näkymiä.
-    
+
     Attributes:
         app_controller: viittaus koko sovellusta ohjaavaan luokkaan.
     """

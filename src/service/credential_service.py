@@ -49,13 +49,16 @@ class CredentialService:
 
     def add_credential(self, credential: Credential):
         """
-        Lisää holviin uuden tunnuksen. Tunnuksen id:llä ei ole merkitystä, koska sille annetaan uusi id.
+        Lisää holviin uuden tunnuksen. Tunnuksen id:llä ei ole merkitystä,
+            koska sille annetaan uusi id.
 
         Args:
             credential: lisättävä tunnus
         """
-        credential_id = self.repository.create_credential(self.vault.path, credential)
-        new_credential = self.repository.get_credential(self.vault.path, credential_id)
+        credential_id = self.repository.create_credential(
+            self.vault.path, credential)
+        new_credential = self.repository.get_credential(
+            self.vault.path, credential_id)
         self.vault.credentials.append(new_credential)
 
     def delete_credential(self, credential: Credential):

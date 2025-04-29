@@ -18,7 +18,8 @@ class VaultService:
         Alustaa luokan
 
         Args:
-            base_path: tiedostopolku, johon uudet holvit luodaan. vapaaehtoinen. Oletus: platformdirs.user_data_path("password-manager")
+            base_path: tiedostopolku, johon uudet holvit luodaan. vapaaehtoinen.
+                Oletus: platformdirs.user_data_path("password-manager")
         """
 
         self.base_path = Path(
@@ -107,10 +108,10 @@ class VaultService:
         FROM authentication_check
         LIMIT 1;
         """
-        hash = db_fetch(vault_path, sql_command, [])
-        hash = hash[0][0]
+        password_hash = db_fetch(vault_path, sql_command, [])
+        password_hash = password_hash[0][0]
 
-        return password == hash
+        return password == password_hash
 
 
 vault_service = VaultService()

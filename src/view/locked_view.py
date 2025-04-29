@@ -21,7 +21,8 @@ class LockedView(Frame):
         for database in self._vaults:
             self.listbox.insert("end", database.name)
         self.listbox.grid(row=0, column=0, sticky="ns")
-        self.listbox.bind("<<ListboxSelect>>", self._on_listbox_selection_change)
+        self.listbox.bind("<<ListboxSelect>>",
+                          self._on_listbox_selection_change)
 
         self.create_vault_button = Button(
             self,
@@ -83,10 +84,12 @@ class LockedView(Frame):
         vault = self._vaults[self._selected_vault_index]
         password = self.password_field.get()
 
-        is_authenticated = vault_service.validate_authentication(vault.path, password)
+        is_authenticated = vault_service.validate_authentication(
+            vault.path, password)
 
         if not is_authenticated:
-            messagebox.showerror("Virheellinen salasana", "Syöttämäsi salasana on väärä.")
+            messagebox.showerror("Virheellinen salasana",
+                                 "Syöttämäsi salasana on väärä.")
             return
 
         self._view_controller.app_controller.active_vault = vault

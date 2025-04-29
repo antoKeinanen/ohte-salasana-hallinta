@@ -80,7 +80,7 @@ class TestVaultService(TestCase):
         db_path = self.path.joinpath(f"{name}.db")
         self.assertTrue(db_path.exists())
         self.assertIsNone(result)
-    
+
     def test_create_vault_returns_message_if_password_is_empty(self):
         result = self.vault_service.create_vault("valid_name", "")
         self.assertEqual(result, "Holvilla tulee olla salasana")
