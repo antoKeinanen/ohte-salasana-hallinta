@@ -22,7 +22,8 @@ class DummyCredentialRepository:
 
     def create_credential(self, _path, credential):
         new_id = (
-            max(cred.id for cred in self.credentials) + 1 if self.credentials else 1
+            max(cred.id for cred in self.credentials) +
+            1 if self.credentials else 1
         )
         credential.id = new_id
         self.credentials.append(credential)
@@ -31,12 +32,18 @@ class DummyCredentialRepository:
     def delete_credential(self, _path, credential):
         self.credentials.remove(credential)
 
+    def update_credential(self, _path, updated_credential):
+        for index, cred in enumerate(self.credentials):
+            if cred.id == updated_credential.id:
+                self.credentials[index] = updated_credential
+
 
 class TestCredentialService(TestCase):
     def setUp(self):
         self.repo = DummyCredentialRepository()
         self.vault = Vault(name="dummy", path="/dummy/path", credentials=[])
-        self.service = CredentialService(vault=self.vault, repository=self.repo)
+        self.service = CredentialService(
+            vault=self.vault, repository=self.repo)
 
     def test_get_all_credentials(self):
         self.service.get_all_credentials()
@@ -80,3 +87,27 @@ class TestCredentialService(TestCase):
 
         self.assertNotIn(credential_to_delete, self.vault.credentials)
         self.assertNotIn(credential_to_delete, self.repo.credentials)
+
+    def test_update_credential(self):
+        self.service.get_all_credentials()
+        original_credential = self.vault.credentials[0]
+
+        updated_credential = Credential(
+            id=original_credential.id,
+            name="updated_cred",
+            username="updated_user",
+            password="updated_pass",
+        )
+
+        self.assertIn(original_credential, self.vault.credentials)
+
+        self.service.update_credential(updated_credential)
+
+        self.assertNotIn(original_credential, self.vault.credentials)
+
+        self.assertIn(updated_credential, self.vault.credentials)
+
+        repo_credential = self.repo.get_credential(None, updated_credential.id)
+        self.assertEqual(repo_credential.name, "updated_cred")
+        self.assertEqual(repo_credential.username, "updated_user")
+        self.assertEqual(repo_credential.password, "updated_pass")

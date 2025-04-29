@@ -14,14 +14,15 @@ Vaikka sovellus tukeekin montaa käyttäjää on käyttäjätyyppejä vain yksi.
 - [x] Käyttäjä voi luda uuden *holvin* johon voidaan säilöä salasanoja.
 - [x] Käyttäjä näkee listan laitteella olevista holveista.
 - [x] Käyttäjä voi kirjautua laitteella jo olemassa olevaan holviin.
-- [ ] Jos salasana ei ole oikein käyttäjä ei voi avata holvia.
+- [x] Jos salasana ei ole oikein käyttäjä ei voi avata holvia.
 
 ### Kirjautumisen jälkeen
 - [x] Käyttäjä voi lisätä uuden tunnuksen
 - [x] Käyttäjä näkee listan holvissa olevista tunnuksista
 - [x] Käyttäjä voi poistaa tunnuksen
 - [x] Käyttäjä voi lukea tunnuksen tiedot
-- [ ] Käyttäjä voi muokata tunnusta
+- [x] Käyttäjä voi muokata tunnusta
+- [x] Käyttäjä voi sulkea avatun holvin
 
 ### Muita vaatimuksia
 - [ ] Holvin tulee olla salattu kun se ei ole käytössä
