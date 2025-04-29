@@ -2,6 +2,7 @@
 
 - Käyttäjä voi muokata tunnuksia
 - Näkymäajurin näkymän vaihto metodi saa vapaaehtoisen props muuttujan, joka välitetään näkymälle
+- Holvin avaaminen vaatii salasanan
 
 ## Viikko 5
 
