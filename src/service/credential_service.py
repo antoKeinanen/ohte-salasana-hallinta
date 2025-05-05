@@ -9,12 +9,13 @@ class CredentialService:
 
     Attributes:
         vault: viittaus auki olevaan holviin
-        repository: viittaus matalantason tietokantaluokkaan. 
+        repository: viittaus matalantason tietokantaluokkaan.
     """
 
     def __init__(
         self,
         vault: Vault,
+        password: str,
         repository: CredentialRepository | None = CredentialRepository(),
     ):
         """
@@ -22,17 +23,22 @@ class CredentialService:
 
         Args:
             vault: viittaus hallinnoitavaan holviin
+            password: salasana, jolla holvin tunnukset salataan ja puretaan
             repository: käytettävä repository luokka. *vapaaehtoinen*
         """
 
         self.vault = vault
         self.repository = repository
+        self.password = password
 
     def get_all_credentials(self):
         """
         Hakee kaikki holvissa olevat tunnukset ja päivittää ne luokalle määritettyyn holviin.
         """
-        credentials = self.repository.get_all_credentials(self.vault.path)
+        credentials = self.repository.get_all_credentials(
+            self.vault.path,
+            self.password,
+        )
         self.vault.credentials = credentials
 
     def get_credential_by_id(self, credential_id: int):
@@ -45,7 +51,11 @@ class CredentialService:
         Returns:
             credential: tunnus jos sellainen löytyin holvista, muulloin None
         """
-        return self.repository.get_credential(self.vault.path, credential_id)
+        return self.repository.get_credential(
+            self.vault.path,
+            credential_id,
+            self.password,
+        )
 
     def add_credential(self, credential: Credential):
         """
@@ -56,9 +66,15 @@ class CredentialService:
             credential: lisättävä tunnus
         """
         credential_id = self.repository.create_credential(
-            self.vault.path, credential)
+            self.vault.path,
+            credential,
+            self.password,
+        )
         new_credential = self.repository.get_credential(
-            self.vault.path, credential_id)
+            self.vault.path,
+            credential_id,
+            self.password,
+        )
         self.vault.credentials.append(new_credential)
 
     def delete_credential(self, credential: Credential):
@@ -69,7 +85,7 @@ class CredentialService:
             credential: poistettava tunnus
         """
 
-        self.repository.delete_credential(self.vault.path, credential)
+        self.repository.delete_credential(self.vault.path, credential, self.password)
         self.vault.credentials.remove(credential)
 
     def update_credential(self, credential: Credential):
@@ -80,7 +96,7 @@ class CredentialService:
             credential: muokattava tunnus
         """
 
-        self.repository.update_credential(self.vault.path, credential)
+        self.repository.update_credential(self.vault.path, credential, self.password)
         self.vault.credentials = [
             cred for cred in self.vault.credentials if cred.id != credential.id
         ]

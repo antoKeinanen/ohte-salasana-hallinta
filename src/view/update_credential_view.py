@@ -18,7 +18,9 @@ class UpdateCredentialView(Frame):
 
         self._view_controller = view_controller
         self._vault = self._view_controller.app_controller.active_vault
-        self._credential_service = CredentialService(self._vault)
+
+        password = self._view_controller.app_controller.password
+        self._credential_service = CredentialService(self._vault, password)
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)

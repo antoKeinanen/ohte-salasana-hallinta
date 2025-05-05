@@ -93,4 +93,5 @@ class LockedView(Frame):
             return
 
         self._view_controller.app_controller.active_vault = vault
+        self._view_controller.app_controller.password = password
         self._view_controller.swap_view("vault")

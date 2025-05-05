@@ -14,7 +14,9 @@ class CreateCredentialView(Frame):
 
         self._view_controller = view_controller
         self._vault = self._view_controller.app_controller.active_vault
-        self._credential_service = CredentialService(self._vault)
+
+        password = self._view_controller.app_controller.password
+        self._credential_service = CredentialService(self._vault, password)
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -22,8 +24,7 @@ class CreateCredentialView(Frame):
         self.container = Frame(self)
         self.container.grid()
 
-        self.heading = Label(
-            self.container, text="Luo uusi tunnus", font=("Arial", 16))
+        self.heading = Label(self.container, text="Luo uusi tunnus", font=("Arial", 16))
         self.heading.grid(pady=16)
 
         self.name_label = Label(self.container, text="Tunnuksen nimi")
