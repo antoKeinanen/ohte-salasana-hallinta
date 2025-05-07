@@ -38,6 +38,11 @@ namespace Repository {
     class CredentialRepository
 }
 
+namespace util {
+    class encrypt
+    class decrypt
+}
+
 Main "1" -- "1" PasswordManagerApp
 Main "1" -- "1" AppController
 AppController "1" -- "1" PasswordManagerApp
@@ -56,6 +61,8 @@ CredentialService --> CredentialRepository
 Vault "1" -- "*" Credential
 CredentialService --> Credential
 AppController --> Vault
+CredentialService --> encrypt
+CredentialService --> decrypt
 
 ```
 
@@ -133,15 +140,23 @@ Käyttäjä voi lisätä uuden tunnuksen holviin painamalla "Luo uusi tunnus nap
 sequenceDiagram
 actor Käyttäjä
 participant UI
-participant VaultService
-participant ViewController
+participant Credential
+participant CredentialService
+participant CredentialRepository
 
 Käyttäjä ->> UI: paina "Luo tunnus" nappia
-UI ->> VaultService: validate_authentication("/holvin/polku/hovi.db", "salasana")
-VaultService -->> UI: True
-UI ->> ViewController: swap_view("vault")
-ViewController -->> Käyttäjä: Holvi näkymä 
+UI ->> Credential: tunnus = Credential(-1, "nimi", "käyttäjä", "salasana")
+Credential -->> UI: 
+UI ->>+ CredentialService: add_credential(tunnus)
+CredentialService ->> CredentialRepository: create_credential("/holvin/polku/hovi.db", tunnus, "holvin salasana")
+CredentialRepository -->> CredentialService: tunnuksen_id
+CredentialService ->> CredentialRepository: get_credential("/holvin/polku/hovi.db", tunnus, "holvin salasana")
+CredentialRepository -->> CredentialService: uusi tunnus
+CredentialService -->- UI: 
+
 ```
 
 ## Ongelmat sovelluksen rakenteessa
 Credential luokka ottaa argumentiksi viittauksen Vault dataluokkaan. Kun Credential methodeja kutsutaan muokkaa se dataluokkaa paikallaan eikä palauta uutta erillistä instanssia. Mielestäni tämä rakenne voi olla hieman harhaanjohtava.
+
+Ohjelma myös säilyttää ohjelmalle tärkeitä tietoja, kuten auki olevaa holvia ja sen salasanaa AppController luokassa. Tämän takia moni luokka alempana ohjelmassa joutuu hakemaan kyseiset tiedot aika ikävällä tavalla. Tältä olisi voinut välttyä luomalla koko ohjelman tilaa kuvaavan dataluokan ja käyttämällä sitä singleton rakenteen mukaisesti. 
