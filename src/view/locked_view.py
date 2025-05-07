@@ -17,60 +17,60 @@ class LockedView(Frame):
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        self.listbox = Listbox(self)
+        self._listbox = Listbox(self)
         for database in self._vaults:
-            self.listbox.insert("end", database.name)
-        self.listbox.grid(row=0, column=0, sticky="ns")
-        self.listbox.bind("<<ListboxSelect>>",
-                          self._on_listbox_selection_change)
+            self._listbox.insert("end", database.name)
+        self._listbox.grid(row=0, column=0, sticky="ns")
+        self._listbox.bind("<<ListboxSelect>>",
+                           self._on_listbox_selection_change)
 
-        self.create_vault_button = Button(
+        create_vault_button = Button(
             self,
             text="+ Luo uusi holvi",
             command=self._on_create_vault_button_click,
         )
-        self.create_vault_button.grid(row=1, column=0, sticky="nsew")
+        create_vault_button.grid(row=1, column=0, sticky="nsew")
 
-        self.right_container = Frame(self)
-        self.right_container.grid(row=0, column=1, rowspan=2)
+        right_container = Frame(self)
+        right_container.grid(row=0, column=1, rowspan=2)
 
         if not self._vaults:
-            self.header = Label(
-                self.right_container,
+            header = Label(
+                right_container,
                 text="Luo uusi hovi painamalla luo uusi holvi nappia",
             )
-            self.header.grid(row=0, column=0, sticky="ew", pady=16)
+            header.grid(row=0, column=0, sticky="ew", pady=16)
             return
 
         self._selected_vault_index = 0
-        self.listbox.activate(self._selected_vault_index)
+        self._listbox.activate(self._selected_vault_index)
 
         self._header_text = StringVar(
             self, f"Avaa {self._vaults[self._selected_vault_index].name}"
         )
 
-        self.header = Label(
-            self.right_container,
+        header = Label(
+            right_container,
             textvariable=self._header_text,
             font=("Arial", 16),
         )
-        self.header.grid(row=0, column=0, sticky="ew", pady=16)
+        header.grid(row=0, column=0, sticky="ew", pady=16)
 
-        self.password_label = Label(self.right_container, text="Salasana:")
-        self.password_label.grid(row=1, column=0, sticky="w")
+        password_label = Label(right_container, text="Salasana:")
+        password_label.grid(row=1, column=0, sticky="w")
 
-        self.password_field = Entry(self.right_container, show="*", width=32)
-        self.password_field.grid(row=2, column=0)
+        self._password_field = Entry(right_container, show="*", width=32)
+        self._password_field.grid(row=2, column=0)
 
-        self.submit_button = Button(
-            self.right_container,
+        submit_button = Button(
+            right_container,
             text="Avaa holvi",
             command=self._on_open_vault_button_click,
         )
-        self.submit_button.grid(row=3, column=0, pady=16, sticky="w")
+        submit_button.grid(row=3, column=0, pady=16, sticky="w")
 
     def _on_listbox_selection_change(self, _):
-        index = self.listbox.curselection()
+        index = self._listbox.curselection()
         if index:
             (self._selected_vault_index,) = index
             self._header_text.set(
@@ -82,14 +82,15 @@ class LockedView(Frame):
 
     def _on_open_vault_button_click(self):
         vault = self._vaults[self._selected_vault_index]
-        password = self.password_field.get()
+        password = self._password_field.get()
 
         is_authenticated = vault_service.validate_authentication(
             vault.path, password)
 
         if not is_authenticated:
-            messagebox.showerror("Virheellinen salasana",
-                                 "Syöttämäsi salasana on väärä.")
+            messagebox.showerror(
+                "Virheellinen salasana", "Syöttämäsi salasana on väärä."
+            )
             return
 
         self._view_controller.app_controller.active_vault = vault

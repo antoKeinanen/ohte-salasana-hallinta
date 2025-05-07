@@ -23,32 +23,32 @@ class VaultView(Frame):
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(1, weight=1)
 
-        self.close_vault_button = Button(
+        close_vault_button = Button(
             self, text="Sulje holvi", command=self._on_close_vault_button_click
         )
-        self.close_vault_button.grid(row=0, column=0, sticky="nsew")
+        close_vault_button.grid(row=0, column=0, sticky="nsew")
 
-        self.listbox = Listbox(self)
-        self.listbox.grid(row=1, column=0, sticky="ns")
-        self.listbox.bind("<<ListboxSelect>>",
-                          self._on_listbox_selection_change)
+        self._listbox = Listbox(self)
+        self._listbox.grid(row=1, column=0, sticky="ns")
+        self._listbox.bind("<<ListboxSelect>>",
+                           self._on_listbox_selection_change)
 
-        self.create_vault_button = Button(
+        create_vault_button = Button(
             self,
             text="+ Luo uusi tunnus",
             command=self._on_create_credential_button_click,
         )
-        self.create_vault_button.grid(row=2, column=0, sticky="nsew")
+        create_vault_button.grid(row=2, column=0, sticky="nsew")
 
-        self.right_container = Frame(self)
-        self.right_container.grid(row=0, column=1, rowspan=2)
+        self._right_container = Frame(self)
+        self._right_container.grid(row=0, column=1, rowspan=2)
 
         if not self._credentials:
-            self.header = Label(
-                self.right_container,
+            header = Label(
+                self._right_container,
                 text="Luo uusi tunnus painamalla 'Luo uusi tunnus' nappia",
             )
-            self.header.grid(row=0, column=0, sticky="ew", pady=16)
+            header.grid(row=0, column=0, sticky="ew", pady=16)
             return
 
         self._selected_vault_index = 0
@@ -61,51 +61,51 @@ class VaultView(Frame):
             self, f"Salasana: {self._selected_credential.password}"
         )
 
-        self.username_label = Label(
-            self.right_container, textvariable=self._username_text
+        username_label = Label(
+            self._right_container, textvariable=self._username_text
         )
-        self.username_label.grid(row=0, column=0, sticky="ew")
+        username_label.grid(row=0, column=0, sticky="ew")
 
-        self.password_label = Label(
-            self.right_container, textvariable=self._password_text
+        password_label = Label(
+            self._right_container, textvariable=self._password_text
         )
-        self.password_label.grid(row=1, column=0, sticky="ew")
+        password_label.grid(row=1, column=0, sticky="ew")
 
-        self.button_row = Frame(self.right_container)
-        self.button_row.grid(pady=16)
+        button_row = Frame(self._right_container)
+        button_row.grid(pady=16)
 
-        self.delete_button = Button(
-            self.button_row, text="Poista", command=self._on_delete_button_click
+        delete_button = Button(
+            button_row, text="Poista", command=self._on_delete_button_click
         )
-        self.delete_button.grid()
+        delete_button.grid()
 
-        self.update_button = Button(
-            self.button_row,
+        update_button = Button(
+            button_row,
             text="Muokkaa",
             command=self._on_update_credential_button_click,
         )
-        self.update_button.grid()
+        update_button.grid()
 
         self._refresh_view()
 
     def _refresh_view(self):
-        self.listbox.delete(0, "end")
+        self._listbox.delete(0, "end")
         if not self._credentials:
-            for child in [*self.right_container.children.values()]:
+            for child in [*self.self.right_container.children.values()]:
                 child.destroy()
 
             self.header = Label(
-                self.right_container,
+                self.self.right_container,
                 text="Luo uusi tunnus painamalla 'Luo uusi tunnus' nappia",
             )
             self.header.grid(row=0, column=0, sticky="ew", pady=16)
             return
 
         for credential in self._credentials:
-            self.listbox.insert("end", credential.name)
+            self._listbox.insert("end", credential.name)
 
         self._selected_credential = self._credentials[self._selected_vault_index]
-        self.listbox.activate(self._selected_vault_index)
+        self._listbox.activate(self._selected_vault_index)
         self._update_credential_text()
 
     def _update_credential_text(self):
@@ -115,7 +115,7 @@ class VaultView(Frame):
             f"Salasana: {self._selected_credential.password}")
 
     def _on_listbox_selection_change(self, _):
-        selection = self.listbox.curselection()
+        selection = self._listbox.curselection()
         if selection:
             self._selected_vault_index = selection[0]
             self._selected_credential = self._credentials[self._selected_vault_index]
