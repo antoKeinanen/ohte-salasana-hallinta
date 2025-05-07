@@ -90,7 +90,7 @@ class CredentialRepository:
             ],
         )
 
-    def delete_credential(self, path: Path, credential: Credential, password: str):
+    def delete_credential(self, path: Path, credential: Credential):
         """
         Poistaa holvista tunnuksen.
 

@@ -85,7 +85,8 @@ class CredentialService:
             credential: poistettava tunnus
         """
 
-        self.repository.delete_credential(self.vault.path, credential, self.password)
+        self.repository.delete_credential(
+            self.vault.path, credential, self.password)
         self.vault.credentials.remove(credential)
 
     def update_credential(self, credential: Credential):
@@ -96,7 +97,8 @@ class CredentialService:
             credential: muokattava tunnus
         """
 
-        self.repository.update_credential(self.vault.path, credential, self.password)
+        self.repository.update_credential(
+            self.vault.path, credential, self.password)
         self.vault.credentials = [
             cred for cred in self.vault.credentials if cred.id != credential.id
         ]

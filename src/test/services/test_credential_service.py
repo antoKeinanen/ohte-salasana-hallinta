@@ -22,7 +22,8 @@ class DummyCredentialRepository:
 
     def create_credential(self, _path, credential, _password):
         new_id = (
-            max(cred.id for cred in self.credentials) + 1 if self.credentials else 1
+            max(cred.id for cred in self.credentials) +
+            1 if self.credentials else 1
         )
         credential.id = new_id
         self.credentials.append(credential)
@@ -109,7 +110,8 @@ class TestCredentialService(TestCase):
 
         self.assertIn(updated_credential, self.vault.credentials)
 
-        repo_credential = self.repo.get_credential(None, updated_credential.id, "test password")
+        repo_credential = self.repo.get_credential(
+            None, updated_credential.id, "test password")
         self.assertEqual(repo_credential.name, "updated_cred")
         self.assertEqual(repo_credential.username, "updated_user")
         self.assertEqual(repo_credential.password, "updated_pass")

@@ -1,7 +1,7 @@
+import os
 import hashlib
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
-import os
 
 
 def encrypt(data: str, key: str) -> str:
@@ -14,6 +14,7 @@ def encrypt(data: str, key: str) -> str:
     ciphertext = cipher.encrypt(padded_data)
 
     return (iv + ciphertext).hex()
+
 
 def decrypt(encrypted_data: str, key: str) -> str:
     encrypted_bytes = bytes.fromhex(encrypted_data)

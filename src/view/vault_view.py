@@ -30,7 +30,8 @@ class VaultView(Frame):
 
         self.listbox = Listbox(self)
         self.listbox.grid(row=1, column=0, sticky="ns")
-        self.listbox.bind("<<ListboxSelect>>", self._on_listbox_selection_change)
+        self.listbox.bind("<<ListboxSelect>>",
+                          self._on_listbox_selection_change)
 
         self.create_vault_button = Button(
             self,
@@ -108,8 +109,10 @@ class VaultView(Frame):
         self._update_credential_text()
 
     def _update_credential_text(self):
-        self._username_text.set(f"Käyttäjätunnus: {self._selected_credential.username}")
-        self._password_text.set(f"Salasana: {self._selected_credential.password}")
+        self._username_text.set(
+            f"Käyttäjätunnus: {self._selected_credential.username}")
+        self._password_text.set(
+            f"Salasana: {self._selected_credential.password}")
 
     def _on_listbox_selection_change(self, _):
         selection = self.listbox.curselection()
