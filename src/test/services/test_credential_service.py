@@ -29,7 +29,7 @@ class DummyCredentialRepository:
         self.credentials.append(credential)
         return new_id
 
-    def delete_credential(self, _path, credential, _password):
+    def delete_credential(self, _path, credential):
         self.credentials.remove(credential)
 
     def update_credential(self, _path, updated_credential, _password):
