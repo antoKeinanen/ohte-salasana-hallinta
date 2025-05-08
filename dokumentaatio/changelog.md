@@ -1,3 +1,7 @@
+## Viikko 7
+
+- Holvin salasana säilytetään nyt hash:attuna holvissa
+
 ## Viikko 6
 
 - Käyttäjä voi muokata tunnuksia
