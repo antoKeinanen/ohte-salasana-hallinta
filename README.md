@@ -1,4 +1,4 @@
-# Ohjelmistotekniikka, harjoitustyö
+# OHTE Salasana hallinta
 
 Sovelluksen avulla käyttäjä voi tietoturvallisesti säilöä tunnuksia. Ohjelma tallentaa ja salaa käyttäjän syöttämät tunnukset sekä tarjoaa käyttöliittymän niiden hallinnoimiseen. Sovellus tukee monia käyttäjiä samalla laitteella ja jopa samassa kotihakemistossa.
 
