@@ -16,4 +16,7 @@
 |       | 0.25h  | Holvin sulku ominaisuus                          |
 | 26.4. | 0.5h   | Holvin salasana vahvistus                        |
 | 27.4. | 1.5h   | Dokumentaation kirjoittelua ja testien korjausta |
-| YHT   | 16.25h |                                                  |
+| 5.5.  | 1h     | Tunnuksien salaus                                |
+| 7.5.  | 0.5h   | Koodin siistintää ja dokumentaation korjausta    |
+| 8.5.  | 0.5h   | Projektin viimeistelyä                           |
+| YHT   | 18.25h |                                                  |
