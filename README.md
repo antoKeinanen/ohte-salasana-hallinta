@@ -7,6 +7,7 @@
 - [Changelog](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/changelog.md)
 - [Työkirjanpito](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/työkirjanpito.md)
 - [Käyttöohje](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/kayttoohje.md)
+- [Testausdokumentti](https://github.com/antoKeinanen/ohjelmistotekniikka-harjoitus/blob/main/dokumentaatio/testaus.md)
 
 ## Asennus ja käyttö
 
