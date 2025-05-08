@@ -2,6 +2,8 @@ from pathlib import Path
 from glob import glob
 import platformdirs
 from model.vault import Vault
+from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError
 from service.database_service import db_execute_script, db_execute, db_fetch
 
 
@@ -21,7 +23,7 @@ class VaultService:
             base_path: tiedostopolku, johon uudet holvit luodaan. vapaaehtoinen.
                 Oletus: platformdirs.user_data_path("password-manager")
         """
-
+        self.hasher = PasswordHasher()
         self.base_path = Path(
             base_path or platformdirs.user_data_path("password-manager")
         )
@@ -92,7 +94,8 @@ class VaultService:
         sql_command = """
         INSERT INTO authentication_check (hash) VALUES (?);
         """
-        db_execute(vault_path, sql_command, [password])
+        password_hash = self.hasher.hash(password)
+        db_execute(vault_path, sql_command, [password_hash])
 
     def validate_authentication(self, vault_path: Path, password: str):
         """
@@ -108,10 +111,13 @@ class VaultService:
         FROM authentication_check
         LIMIT 1;
         """
-        password_hash = db_fetch(vault_path, sql_command, [])
-        password_hash = password_hash[0][0]
+        db_hash = db_fetch(vault_path, sql_command, [])
+        db_hash = db_hash[0][0]
 
-        return password == password_hash
+        try:
+            return self.hasher.verify(db_hash, password)
+        except VerifyMismatchError:
+            return False
 
 
 vault_service = VaultService()
