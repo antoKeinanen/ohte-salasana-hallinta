@@ -19,4 +19,4 @@
 | 5.5.  | 1h     | Tunnuksien salaus                                |
 | 7.5.  | 0.5h   | Koodin siistintää ja dokumentaation korjausta    |
 | 8.5.  | 0.5h   | Projektin viimeistelyä                           |
-| YHT   | 18.25h |                                                  |
+| YHT   | 18.75h |                                                  |
